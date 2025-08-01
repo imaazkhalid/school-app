@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Teacher;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -9,6 +11,8 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class TeacherFactory extends Factory
 {
+    protected $model = Teacher::class;
+
     /**
      * Define the model's default state.
      *
@@ -17,7 +21,8 @@ class TeacherFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'teacher_id' => $this->faker->unique()->randomNumber(4, true),
+            'user_id' => User::factory()->state(['role' => 'teacher']),
         ];
     }
 }
