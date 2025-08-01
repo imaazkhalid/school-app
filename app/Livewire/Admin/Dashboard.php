@@ -3,8 +3,10 @@
 namespace App\Livewire\Admin;
 
 use App\Models\Course;
+use Livewire\Attributes\Title;
 use Livewire\Component;
 
+#[Title('Admin Dashboard')]
 class Dashboard extends Component
 {
     public $courses;
