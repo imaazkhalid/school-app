@@ -32,7 +32,8 @@
                                     <flux:icon.ellipsis-vertical variant="solid" class="size-4"/>
                                 </flux:button>
                                 <flux:menu>
-                                    <flux:menu.item href="#">{{ __('View Sections') }}</flux:menu.item>
+                                    <flux:menu.item
+                                        :href="route('admin.courses.sections', ['course' => $course->id])" wire:navigate>{{ __('View Sections') }}</flux:menu.item>
                                     <flux:menu.item href="#">{{ __('Edit Course') }}</flux:menu.item>
                                     <flux:menu.item href="#"
                                                     class="text-red-500 hover:bg-red-500/10">{{ __('Delete Course') }}</flux:menu.item>
