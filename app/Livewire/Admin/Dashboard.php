@@ -25,7 +25,7 @@ class Dashboard extends Component
     #[On('course-created')]
     public function getCourses()
     {
-        $this->courses = Course::withCount('sections')->get()->sortByDesc('created_at');
+        $this->courses = Course::withCount('sections')->latest()->get();
     }
 
     public function save()

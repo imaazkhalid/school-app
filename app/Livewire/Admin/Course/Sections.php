@@ -45,7 +45,7 @@ class Sections extends Component
     public function render()
     {
         return view('livewire.admin.course.sections', [
-            'sections' => $this->course->sections()->with('teacher.user')->get()->sortByDesc('created_at'),
+            'sections' => $this->course->sections()->with('teacher.user')->latest()->get(),
             'teachers' => Teacher::with('user')->get(),
         ]);
     }
