@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('sections', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
             $table->foreignIdFor(Course::class)->constrained()->onDelete('cascade');
             $table->foreignIdFor(Teacher::class)->constrained()->onDelete('cascade');
             $table->string('schedule');

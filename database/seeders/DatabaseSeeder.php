@@ -28,10 +28,10 @@ class DatabaseSeeder extends Seeder
         ]);
 
         // Create some teachers
-        Teacher::factory(5)->create();
+        // Teacher::factory(5)->create();
 
         // Create some courses
-        Course::factory(10)->create();
+        // Course::factory(10)->create();
 
         // Create a bunch of sections, which will automatically create related courses and teachers
         Section::factory(20)->create();

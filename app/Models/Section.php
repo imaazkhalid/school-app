@@ -11,7 +11,7 @@ class Section extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['course_id', 'teacher_id', 'schedule', 'capacity', 'seats_available'];
+    protected $fillable = ['name', 'course_id', 'teacher_id', 'schedule', 'capacity', 'seats_available'];
 
     /**
      * The course this section belongs to.
