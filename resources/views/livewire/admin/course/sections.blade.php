@@ -36,7 +36,8 @@
                                     <flux:icon.ellipsis-vertical variant="solid" class="size-4"/>
                                 </flux:button>
                                 <flux:menu>
-                                    <flux:menu.item href="#">{{ __('Edit Section') }}</flux:menu.item>
+                                    <flux:menu.item
+                                        wire:click="edit({{ $section->id }})">{{ __('Edit Section') }}</flux:menu.item>
                                     <flux:menu.item href="#"
                                                     class="text-red-500 hover:bg-red-500/10">{{ __('Delete Section') }}</flux:menu.item>
                                 </flux:menu>
@@ -58,8 +59,12 @@
                 class="w-full max-w-xl">
         <form wire:submit="save" class="grid gap-4">
             <div>
-                <flux:heading size="lg">Create New Section</flux:heading>
-                <flux:text class="mt-2">Enter the details for the new section.</flux:text>
+                <flux:heading size="lg">
+                    {{ $editing ? __('Edit Section') : __('Create New Section') }}
+                </flux:heading>
+                <flux:text class="mt-2">
+                    {{ $editing ? __('Update the details for this section.') : __('Enter the details for the new section.') }}
+                </flux:text>
             </div>
 
             <flux:input label="Section Name" wire:model="name" placeholder="E.g. Introduction"/>
@@ -79,8 +84,8 @@
                 <flux:modal.close>
                     <flux:button variant="ghost">{{ __('Cancel') }}</flux:button>
                 </flux:modal.close>
-                <flux:button type="submit" variant="primary">
-                    {{ __('Save Section') }}
+                <flux:button type="submit" variant="primary" disabled wire:dirty.attr.remove="disabled">
+                    {{ $editing ? __('Update Section') : __('Save Section') }}
                 </flux:button>
             </div>
         </form>
