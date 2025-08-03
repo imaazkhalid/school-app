@@ -5,7 +5,6 @@
         <div class="p-6 bg-white dark:bg-zinc-800 rounded-xl shadow border border-neutral-200 dark:border-zinc-700">
             <h2 class="text-xl font-semibold text-neutral-900 dark:text-neutral-100">{{ __('Total Courses') }}</h2>
             <p class="mt-2 text-3xl font-bold text-primary-500">{{ $courseCount }}</p>
-            <a href="{{route('admin.courses')}}">go</a>
         </div>
         <div class="p-6 bg-white dark:bg-zinc-800 rounded-xl shadow border border-neutral-200 dark:border-zinc-700">
             <h2 class="text-xl font-semibold text-neutral-900 dark:text-neutral-100">{{ __('Total Teachers') }}</h2>
