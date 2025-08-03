@@ -1,6 +1,6 @@
 <?php
 
-use App\Livewire\Admin\Course\Sections;
+use App\Livewire\Admin\Courses\Sections;
 use App\Livewire\Admin\Dashboard as AdminDashboard;
 use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;

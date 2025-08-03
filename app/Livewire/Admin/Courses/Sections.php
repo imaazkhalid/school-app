@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Admin\Course;
+namespace App\Livewire\Admin\Courses;
 
 use App\Models\Course;
 use App\Models\Section;
