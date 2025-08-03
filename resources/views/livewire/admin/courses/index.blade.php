@@ -1,6 +1,9 @@
 <div class="flex h-full w-full flex-1 flex-col gap-4 rounded-xl">
     <div class="flex items-center justify-between">
-        <h1 class="text-2xl font-bold">{{ __('Course Management') }}</h1>
+        <div class="flex justify-center items-center gap-4">
+            <flux:button icon="arrow-left" variant="ghost" :href="url()->previous()" :current="request()->routeIs('admin.dashboard')" wire:navigate/>
+            <h1 class="text-2xl font-bold">{{ __('Course Management') }}</h1>
+        </div>
         <flux:modal.trigger :name="'create-course-modal'">
             <flux:button color="primary" icon="plus" class="flex-shrink-0">
                 {{ __('Create Course') }}

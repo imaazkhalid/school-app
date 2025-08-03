@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Admin;
+namespace App\Livewire\Admin\Courses;
 
 use App\Models\Course;
 use Illuminate\Validation\Rule;
@@ -9,7 +9,7 @@ use Livewire\Component;
 use Livewire\WithPagination;
 
 #[Title('Courses')]
-class Dashboard extends Component
+class Index extends Component
 {
     use WithPagination;
 
@@ -74,7 +74,7 @@ class Dashboard extends Component
 
     public function render()
     {
-        return view('livewire.admin.dashboard', [
+        return view('livewire.admin.courses.index', [
             'courses' => Course::withCount('sections')->latest()->paginate(10),
         ]);
     }
