@@ -8,6 +8,7 @@ use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
 use App\Livewire\Student\Dashboard as StudentDashboard;
+use App\Livewire\Student\Enroll;
 use App\Livewire\Teacher\Dashboard as TeacherDashboard;
 use App\Livewire\Teacher\Section\Grades;
 use Illuminate\Support\Facades\Route;
@@ -40,6 +41,7 @@ Route::middleware(['auth', 'verified', 'role:teacher'])->prefix('teacher')->name
 
 Route::middleware(['auth', 'verified', 'role:student'])->prefix('student')->name('student.')->group(function () {
     Route::get('/dashboard', StudentDashboard::class)->name('dashboard');
+    Route::get('/enroll', Enroll::class)->name('enrollment.index');
 });
 
 Route::middleware(['auth'])->group(function () {
