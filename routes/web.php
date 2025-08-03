@@ -1,5 +1,6 @@
 <?php
 
+use App\Livewire\Admin\Courses\Index;
 use App\Livewire\Admin\Courses\Sections;
 use App\Livewire\Admin\Dashboard as AdminDashboard;
 use App\Livewire\Settings\Appearance;
@@ -24,6 +25,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::middleware(['admin'])->group(function () {
         Route::get('/admin/dashboard', AdminDashboard::class)->name('admin.dashboard');
+        Route::get('/admin/courses', Index::class)->name('admin.courses');
         Route::get('/admin/courses/{course}/sections', Sections::class)->name('admin.courses.sections');
     });
 });
