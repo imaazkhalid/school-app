@@ -6,8 +6,10 @@ use App\Models\Course;
 use App\Models\Section;
 use App\Models\Teacher;
 use Illuminate\Validation\Rule;
+use Livewire\Attributes\Title;
 use Livewire\Component;
 
+#[Title('Sections')]
 class Sections extends Component
 {
     public Course $course;
