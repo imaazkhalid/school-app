@@ -7,7 +7,7 @@ use App\Models\Section;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 
-#[Title('Courses Students')]
+#[Title('Section Students')]
 class Students extends Component
 {
     public Section $section;

@@ -8,7 +8,7 @@ use App\Models\Teacher;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 
-#[Title('Admin Dashboard')]
+#[Title('Dashboard')]
 class Dashboard extends Component
 {
     public function render()
