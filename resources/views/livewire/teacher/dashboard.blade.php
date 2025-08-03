@@ -15,7 +15,7 @@
                 @forelse ($sections as $section)
                     <tr>
                         <td class="whitespace-nowrap px-6 py-3 text-sm font-medium text-neutral-900 dark:text-neutral-100">
-                            <a href="#" class="hover:underline" wire:navigate>
+                            <a href="{{ route('teacher.sections.grades', $section) }}" class="hover:underline" wire:navigate>
                                 {{ $section->name }}
                             </a>
                         </td>

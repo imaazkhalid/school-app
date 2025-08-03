@@ -9,6 +9,7 @@ use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
 use App\Livewire\Student\Dashboard as StudentDashboard;
 use App\Livewire\Teacher\Dashboard as TeacherDashboard;
+use App\Livewire\Teacher\Section\Grades;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -34,6 +35,7 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->name('ad
 
 Route::middleware(['auth', 'verified', 'role:teacher'])->prefix('teacher')->name('teacher.')->group(function () {
     Route::get('/dashboard', TeacherDashboard::class)->name('dashboard');
+    Route::get('/sections/{section}/grades', Grades::class)->name('sections.grades');
 });
 
 Route::middleware(['auth', 'verified', 'role:student'])->prefix('student')->name('student.')->group(function () {
