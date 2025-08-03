@@ -3,59 +3,92 @@
 namespace App\Livewire\Admin;
 
 use App\Models\Course;
-use Livewire\Attributes\On;
+use Illuminate\Validation\Rule;
 use Livewire\Attributes\Title;
 use Livewire\Component;
+use Livewire\WithPagination;
 
-#[Title('Admin Dashboard')]
+#[Title('Courses')]
 class Dashboard extends Component
 {
-    public $courses;
+    use WithPagination;
 
     public $name = '';
     public $code = '';
     public $description = '';
     public bool $showCreateModal = false;
+    public bool $showDeleteModal = false;
 
-    public function mount()
+    public ?Course $editing = null;
+    public ?Course $deleting = null;
+
+    public function edit(Course $course)
     {
-        $this->getCourses();
+        $this->editing = $course;
+        $this->name = $course->name;
+        $this->code = $course->code;
+        $this->description = $course->description;
+        $this->showCreateModal = true;
     }
 
-    #[On('course-created')]
-    public function getCourses()
+    public function destroy()
     {
-        $this->courses = Course::withCount('sections')->latest()->get();
+        $this->deleting->delete();
+        $this->deleting = null;
+        $this->showDeleteModal = false;
+    }
+
+    public function delete(Course $course)
+    {
+        $this->deleting = $course;
+        $this->showDeleteModal = true;
     }
 
     public function save()
     {
         $this->validate();
 
-        Course::create([
-            'name' => $this->name,
-            'code' => $this->code,
-            'description' => $this->description,
-        ]);
+        if ($this->editing) {
+            $this->editing->update([
+                'name' => $this->name,
+                'code' => $this->code,
+                'description' => $this->description,
+            ]);
+        } else {
+            Course::create([
+                'name' => $this->name,
+                'code' => $this->code,
+                'description' => $this->description,
+            ]);
+        }
 
-        // Reset the form fields and close the modal
-        $this->reset(['name', 'code', 'description']);
+        $this->resetForm();
+    }
+
+    public function resetForm()
+    {
+        $this->reset(['name', 'code', 'description', 'editing']);
+        $this->resetValidation();
         $this->showCreateModal = false;
-
-        // Dispatch an event to refresh the course list
-        $this->getCourses();
     }
 
     public function render()
     {
-        return view('livewire.admin.dashboard');
+        return view('livewire.admin.dashboard', [
+            'courses' => Course::withCount('sections')->latest()->paginate(10),
+        ]);
     }
 
     protected function rules()
     {
         return [
             'name' => 'required|string|max:255',
-            'code' => 'required|string|max:10|unique:courses,code',
+            'code' => [
+                'required',
+                'string',
+                'max:10',
+                Rule::unique('courses')->ignore($this->editing),
+            ],
             'description' => 'nullable|string',
         ];
     }

@@ -33,10 +33,17 @@
                                 </flux:button>
                                 <flux:menu>
                                     <flux:menu.item
-                                        :href="route('admin.courses.sections', ['course' => $course->id])" wire:navigate>{{ __('View Sections') }}</flux:menu.item>
-                                    <flux:menu.item href="#">{{ __('Edit Course') }}</flux:menu.item>
-                                    <flux:menu.item href="#"
-                                                    class="text-red-500 hover:bg-red-500/10">{{ __('Delete Course') }}</flux:menu.item>
+                                        :href="route('admin.courses.sections', ['course' => $course->id])"
+                                        wire:navigate
+                                    >
+                                        {{ __('View Sections') }}
+                                    </flux:menu.item>
+                                    <flux:menu.item wire:click="edit({{ $course->id }})">
+                                        {{ __('Edit Course') }}
+                                    </flux:menu.item>
+                                    <flux:menu.item wire:click="delete({{ $course->id }})" class="text-red-500 hover:bg-red-500/10">
+                                        {{ __('Delete Course') }}
+                                    </flux:menu.item>
                                 </flux:menu>
                             </flux:dropdown>
                         </td>
@@ -52,11 +59,19 @@
         </div>
     </div>
 
-    <flux:modal name="create-course-modal" wire:model.self="showCreateModal" class="w-xl">
+    <div class="mt-4">
+        {{ $courses->links('vendor/pagination/tailwind') }}
+    </div>
+
+    <flux:modal name="create-course-modal" wire:model.self="showCreateModal" class="w-xl" @close="resetForm">
         <form wire:submit="save" class="grid gap-4">
             <div>
-                <flux:heading size="lg">Create New Course</flux:heading>
-                <flux:text class="mt-2">Enter the details for the new course.</flux:text>
+                <flux:heading size="lg">
+                    {{ $editing ? __('Edit Course') : __('Create New Course') }}
+                </flux:heading>
+                <flux:text class="mt-2">
+                    {{ $editing ? __('Update the details for this course.') : __('Enter the details for the new course.') }}
+                </flux:text>
             </div>
 
             <flux:input label="Course Name" wire:model="name" placeholder="E.g. Computer Science"/>
@@ -73,5 +88,24 @@
                 </flux:button>
             </div>
         </form>
+    </flux:modal>
+
+    <flux:modal name="delete-course-modal" wire:model.self="showDeleteModal" class="w-full max-w-md">
+        <div class="space-y-6">
+            <div>
+                <flux:heading size="lg">Delete Course</flux:heading>
+                <flux:text class="mt-2">
+                    Are you sure you want to delete the course "{{ $deleting?->name }}"? <br>
+                    This action cannot be reversed.
+                </flux:text>
+            </div>
+            <div class="flex gap-2">
+                <flux:spacer/>
+                <flux:modal.close>
+                    <flux:button variant="ghost">Cancel</flux:button>
+                </flux:modal.close>
+                <flux:button wire:click="destroy" type="button" variant="danger">Delete Course</flux:button>
+            </div>
+        </div>
     </flux:modal>
 </div>
