@@ -1,8 +1,11 @@
 <div>
     <div class="flex items-center justify-between">
-        <h1 class="text-2xl font-bold">{{ __('Sections for: ') }} {{ $course->name }}</h1>
+        <div class="flex justify-center items-center gap-4">
+            <flux:button icon="arrow-left" variant="ghost" :href="route('admin.dashboard')" :current="request()->routeIs('admin.dashboard')" wire:navigate/>
+            <h1 class="text-2xl font-bold">{{ __('Sections for: ') }} {{ $course->name }}</h1>
+        </div>
         <flux:modal.trigger :name="'create-section-modal'">
-            <flux:button color="primary" icon="plus" class="flex-shrink-0">
+            <flux:button icon="plus" class="flex-shrink-0">
                 {{ __('Create Section') }}
             </flux:button>
         </flux:modal.trigger>
@@ -38,7 +41,7 @@
                                 <flux:menu>
                                     <flux:menu.item
                                         wire:click="edit({{ $section->id }})">{{ __('Edit Section') }}</flux:menu.item>
-                                    <flux:menu.item href="#"
+                                    <flux:menu.item wire:click="delete({{ $section->id }})"
                                                     class="text-red-500 hover:bg-red-500/10">{{ __('Delete Section') }}</flux:menu.item>
                                 </flux:menu>
                             </flux:dropdown>
@@ -89,5 +92,24 @@
                 </flux:button>
             </div>
         </form>
+    </flux:modal>
+
+    <flux:modal name="delete-section-modal" wire:model.self="showDeleteModal" class="w-full max-w-md">
+        <div class="space-y-6">
+            <div>
+                <flux:heading size="lg">Delete Section</flux:heading>
+                <flux:text class="mt-2">
+                    Are you sure you want to delete this section? <br>
+                    This action cannot be reversed.
+                </flux:text>
+            </div>
+            <div class="flex gap-2">
+                <flux:spacer/>
+                <flux:modal.close>
+                    <flux:button variant="ghost">Cancel</flux:button>
+                </flux:modal.close>
+                <flux:button wire:click="destroy" type="button" variant="danger">Delete Section</flux:button>
+            </div>
+        </div>
     </flux:modal>
 </div>

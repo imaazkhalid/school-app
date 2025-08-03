@@ -16,8 +16,10 @@ class Sections extends Component
     public string $schedule = '';
     public int $capacity = 30;
     public bool $showCreateModal = false;
+    public bool $showDeleteModal = false;
 
     public ?Section $editing = null;
+    public ?Section $deleting = null;
 
     public function mount(Course $course)
     {
@@ -33,6 +35,19 @@ class Sections extends Component
         $this->capacity = $section->capacity;
 
         $this->showCreateModal = true;
+    }
+
+    public function destroy()
+    {
+        $this->deleting->delete();
+        $this->deleting = null;
+        $this->showDeleteModal = false;
+    }
+
+    public function delete(Section $section)
+    {
+        $this->deleting = $section;
+        $this->showDeleteModal = true;
     }
 
     public function save()
