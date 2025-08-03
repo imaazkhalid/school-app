@@ -86,7 +86,7 @@ class Sections extends Component
 
     public function render()
     {
-        return view('livewire.admin.course.sections', [
+        return view('livewire.admin.courses.sections', [
             'sections' => $this->course->sections()->with('teacher.user')->latest()->get(),
             'teachers' => Teacher::with('user')->get(),
         ]);
