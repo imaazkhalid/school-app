@@ -1,7 +1,7 @@
 <div class="flex h-full w-full flex-1 flex-col gap-4 rounded-xl">
     <div class="flex items-center justify-between">
         <div class="flex justify-center items-center gap-4">
-            <flux:button icon="arrow-left" variant="ghost" :href="url()->previous()" :current="request()->routeIs('admin.dashboard')" wire:navigate/>
+            <flux:button icon="arrow-left" variant="ghost" :href="route('dashboard')" :current="request()->routeIs('admin.dashboard')" wire:navigate/>
             <h1 class="text-2xl font-bold">{{ __('Course Management') }}</h1>
         </div>
         <flux:modal.trigger :name="'create-course-modal'">
@@ -36,7 +36,7 @@
                                 </flux:button>
                                 <flux:menu>
                                     <flux:menu.item
-                                        :href="route('admin.courses.sections', ['course' => $course->id])"
+                                        :href="route('admin.courses.sections.index', ['course' => $course->id])"
                                         wire:navigate
                                     >
                                         {{ __('View Sections') }}
