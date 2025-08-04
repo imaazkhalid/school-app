@@ -5,12 +5,17 @@ namespace App\Livewire\Teacher\Section;
 use App\Models\Section;
 use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Title;
+use Livewire\Attributes\Validate;
 use Livewire\Component;
 
 #[Title('Manage Grades')]
 class Grades extends Component
 {
     public Section $section;
+
+    #[Validate([
+        'grades.*' => 'nullable|numeric|min:0|max:100',
+    ])]
     public array $grades = [];
 
     public function mount(Section $section)
@@ -26,6 +31,8 @@ class Grades extends Component
 
     public function saveGrades(): void
     {
+        $this->validate();
+
         DB::transaction(function () {
             foreach ($this->grades as $studentId => $grade) {
                 $this->section->students()->updateExistingPivot($studentId, ['grade' => $grade]);

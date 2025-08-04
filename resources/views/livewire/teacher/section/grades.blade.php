@@ -37,6 +37,11 @@
                             <td class="whitespace-nowrap px-6 py-3 text-sm text-neutral-500 dark:text-neutral-400">
                                 <input type="text" class="w-full px-3 py-2 border rounded-md"
                                        wire:model="grades.{{ $student->id }}"/>
+                                <div>
+                                    @error('grades.' . $student->id)
+                                        <span class="text-xs text-red-500">{{ $message }}</span>
+                                    @enderror
+                                </div>
                             </td>
                         </tr>
                     @empty
