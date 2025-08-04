@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Enrollment extends Pivot
 {
-    use HasFactory, SoftDeletes;
+    use SoftDeletes;
 
     /**
      * Indicates if the IDs are auto-incrementing.
