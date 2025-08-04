@@ -65,7 +65,7 @@
     </div>
 
     <div class="mt-4">
-        {{ $availableSections->links('vendor/pagination/tailwind') }}
+        {{ $availableSections->links() }}
     </div>
 
     <flux:modal
