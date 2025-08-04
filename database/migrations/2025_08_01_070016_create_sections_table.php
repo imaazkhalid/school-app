@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('schedule');
             $table->integer('capacity')->default(30);
             $table->integer('seats_available')->default(30);
+            $table->softDeletes();
             $table->timestamps();
         });
     }
