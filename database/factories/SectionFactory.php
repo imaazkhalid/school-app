@@ -20,7 +20,7 @@ class SectionFactory extends Factory
     {
         $capacity = $this->faker->numberBetween(15, 50);
         return [
-            'name' => $this->faker->name(),
+            'name' => $this->faker->unique()->word(),
             'course_id' => Course::factory(), // This creates a new Course
             'teacher_id' => Teacher::factory(), // This creates a new Teacher
             'schedule' => $this->faker->dayOfWeek() . 's, ' . $this->faker->time('H:i') . ' - ' . $this->faker->time('H:i'),
