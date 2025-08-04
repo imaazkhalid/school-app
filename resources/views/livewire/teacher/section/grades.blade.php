@@ -35,7 +35,8 @@
                         <tr wire:key="{{ $student->id }}">
                             <td class="whitespace-nowrap px-6 py-3 text-sm font-medium text-neutral-900 dark:text-neutral-100">{{ $student->user->name }}</td>
                             <td class="whitespace-nowrap px-6 py-3 text-sm text-neutral-500 dark:text-neutral-400">
-                                <input type="text" class="w-full px-3 py-2 border rounded-md"
+                                <input type="number" class="w-full px-3 py-2 border rounded-md"
+                                       min="0" max="100"
                                        wire:model="grades.{{ $student->id }}"/>
                                 <div>
                                     @error('grades.' . $student->id)
