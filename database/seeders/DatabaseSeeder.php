@@ -36,7 +36,30 @@ class DatabaseSeeder extends Seeder
         // Create a bunch of sections, which will automatically create related courses and teachers
         Section::factory(20)->create();
 
-        // Create 50 students
-        Student::factory(50)->create();
+        // Create students
+        Student::factory(200)->create();
+
+        // Manually attach them to ensure we respect the constraints.
+        $students = Student::all();
+        $sections = Section::all();
+
+        // Loop through students and enroll them in a random section if seats are available.
+        $students->each(function ($student) use ($sections) {
+            // Find a random section that has available seats.
+            $section = $sections->shuffle()->first(function ($s) {
+                return $s->seats_available > 0;
+            });
+
+            if ($section) {
+                // Attach the student to the section with timestamps.
+                $section->students()->attach($student->id, [
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
+
+                // Decrement the available seats count on the section.
+                $section->decrement('seats_available');
+            }
+        });
     }
 }
