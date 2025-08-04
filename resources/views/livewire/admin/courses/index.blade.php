@@ -63,7 +63,7 @@
     </div>
 
     <div class="mt-4">
-        {{ $courses->links('vendor/pagination/tailwind') }}
+        {{ $courses->links() }}
     </div>
 
     <flux:modal name="create-course-modal" wire:model.self="showCreateModal" class="w-xl" @close="resetForm">
