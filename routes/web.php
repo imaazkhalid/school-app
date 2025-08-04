@@ -13,6 +13,28 @@ use App\Livewire\Teacher\Dashboard as TeacherDashboard;
 use App\Livewire\Teacher\Section\Grades;
 use Illuminate\Support\Facades\Route;
 
+Route::get('/health', function () {
+    try {
+        // Check database connection
+        DB::connection()->getPdo();
+
+        // Check cache connection
+        Cache::get('health');
+
+        return response()->json(['status' => 'ok']);
+
+    } catch (Exception $e) {
+        // Log the full error for debugging
+        Log::error('Health check failed', ['error' => $e->getMessage()]);
+
+        return response()->json([
+            'status' => 'error',
+            'message' => 'Service unavailable',
+            'error' => $e->getMessage()
+        ], 500);
+    }
+});
+
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
