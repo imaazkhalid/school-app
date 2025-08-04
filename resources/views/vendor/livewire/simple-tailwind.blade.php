@@ -12,7 +12,7 @@
 
 <div>
     @if ($paginator->hasPages())
-        <nav role="navigation" aria-label="Pagination Navigation" class="pt-3 flex justify-between items-center" data-flux-pagination="">
+        <nav role="navigation" aria-label="Pagination Navigation" class="flex justify-between items-center" data-flux-pagination="">
             {{-- This div is a spacer to match the Flux UI layout --}}
             <div></div>
 
