@@ -20,12 +20,12 @@
 
                     @if (auth()->user()->role === 'teacher')
                         <flux:navlist.item icon="layout-grid" :href="route('teacher.dashboard')" :current="request()->routeIs('teacher.dashboard')" wire:navigate>{{ __('Teacher Dashboard') }}</flux:navlist.item>
-                        <flux:navlist.item icon="folder-git-2" :href="route('teacher.sections.index')" :current="request()->routeIs('teacher.sections.index')" wire:navigate>{{ __('My Sections') }}</flux:navlist.item>
+{{--                        <flux:navlist.item icon="folder-git-2" :href="route('teacher.sections.index')" :current="request()->routeIs('teacher.sections.index')" wire:navigate>{{ __('My Sections') }}</flux:navlist.item>--}}
                     @endif
 
                     @if (auth()->user()->role === 'student')
                         <flux:navlist.item icon="layout-grid" :href="route('student.dashboard')" :current="request()->routeIs('student.dashboard')" wire:navigate>{{ __('Student Dashboard') }}</flux:navlist.item>
-                        <flux:navlist.item icon="folder-git-2" :href="route('student.enrollment.index')" :current="request()->routeIs('student.enrollment.index')" wire:navigate>{{ __('My Enrollment') }}</flux:navlist.item>
+                        <flux:navlist.item icon="folder-git-2" :href="route('student.enrollment.index')" :current="request()->routeIs('student.enrollment.index')" wire:navigate>{{ __('Enroll in Courses') }}</flux:navlist.item>
                     @endif
                 </flux:navlist.group>
             </flux:navlist>
