@@ -4,6 +4,7 @@ namespace App\Livewire\Teacher\Section;
 
 use App\Models\Section;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 use Livewire\Attributes\Title;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
@@ -20,6 +21,8 @@ class Grades extends Component
 
     public function mount(Section $section)
     {
+        Gate::authorize('update', $section);
+
         $this->section = $section;
         $this->loadGrades();
     }
