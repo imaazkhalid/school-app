@@ -6,6 +6,8 @@ use App\Models\Section;
 use App\Models\User;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Validation\ValidationException;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -28,6 +30,8 @@ class Enroll extends Component
 
     public function enroll()
     {
+        $this->ensureIsNotRateLimited();
+
         $section = $this->sectionToEnroll;
 
         if (!$section) {
@@ -73,8 +77,10 @@ class Enroll extends Component
 
                 session()->flash('status', 'You have been successfully enrolled!');
             } catch (\Exception $e) {
+                RateLimiter::hit($this->throttleKey());
                 session()->flash('error', $e->getMessage());
             } finally {
+                RateLimiter::hit($this->throttleKey());
                 // Release the lock, whether the transaction succeeded or failed.
                 $lock->release();
             }
@@ -84,6 +90,32 @@ class Enroll extends Component
 
         $this->isConfirmingEnrollment = false;
         $this->sectionToEnroll = null;
+    }
+
+    /**
+     * Ensure the enrollment request is not rate limited.
+     */
+    protected function ensureIsNotRateLimited(): void
+    {
+        $this->isConfirmingEnrollment = false;
+
+        if (!RateLimiter::tooManyAttempts($this->throttleKey(), 5)) {
+            return;
+        }
+
+        $seconds = RateLimiter::availableIn($this->throttleKey());
+
+        throw ValidationException::withMessages([
+            'enrollment' => __("Too many enrollment attempts. Please try again in {$seconds} seconds."),
+        ]);
+    }
+
+    /**
+     * Get the authentication rate limiting throttle key.
+     */
+    protected function throttleKey(): string
+    {
+        return 'enrollment:' . auth()->id() . '|' . request()->ip();
     }
 
     public function render()

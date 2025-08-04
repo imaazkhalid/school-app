@@ -21,6 +21,16 @@
         </div>
     @endif
 
+    @error('enrollment')
+    <div class="mt-4 rounded-md bg-red-50 p-4 dark:bg-red-950">
+        <div class="flex">
+            <p class="text-sm font-medium text-red-800 dark:text-red-200">
+                {{ $message }}
+            </p>
+        </div>
+    </div>
+    @enderror
+
     <div
         class="mt-4 overflow-hidden rounded-xl border border-neutral-200 bg-white shadow dark:border-zinc-700 dark:bg-zinc-800">
         <div class="min-w-full overflow-x-auto">
