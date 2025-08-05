@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\StudentResultCardController;
 use App\Livewire\Admin\Courses\Index as AdminCourses;
 use App\Livewire\Admin\Courses\Sections as AdminSections;
 use App\Livewire\Admin\Courses\Students as AdminStudents;
@@ -58,6 +59,7 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->name('ad
     Route::get('/courses/{section}/students', AdminStudents::class)->name('courses.students.index');
     Route::get('/students', AdminStudentsIndex::class)->name('students.index');
     Route::get('/teachers', AdminTeachersIndex::class)->name('teachers.index');
+    Route::get('/students/{student}/result-card', [StudentResultCardController::class, 'download'])->name('students.result-card');
 });
 
 Route::middleware(['auth', 'verified', 'role:teacher'])->prefix('teacher')->name('teacher.')->group(function () {
