@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignIdFor(Student::class)->constrained()->onDelete('cascade');
             $table->foreignIdFor(Section::class)->constrained()->onDelete('cascade');
             $table->string('grade')->nullable();
+            $table->integer('marks')->nullable();
             $table->unique(['student_id', 'section_id']);
             $table->softDeletes();
             $table->timestamps();
