@@ -70,17 +70,17 @@
                 </flux:text>
             </div>
 
-            <flux:input label="Section Name" wire:model="name" placeholder="E.g. Introduction"/>
+            <flux:input label="Section Name" wire:model="name" placeholder="E.g. Introduction" required/>
 
             <flux:select label="Teacher" wire:model="teacher_id">
-                <option value="0" selected disabled>{{ __('Select a teacher') }}</option>
+                <flux:select.option value="0" disabled>{{ __('Select a teacher') }}</flux:select.option>
                 @foreach ($teachers as $teacher)
-                    <option value="{{ $teacher->id }}">{{ $teacher->user->name }}</option>
+                    <flux:select.option value="{{ $teacher->id }}">{{ $teacher->user->name }}</flux:select.option>
                 @endforeach
             </flux:select>
 
-            <flux:input label="Schedule" wire:model="schedule" placeholder="E.g. Mon, Wed, Fri 9:00 - 10:00"/>
-            <flux:input type="number" label="Capacity" wire:model="capacity" placeholder="E.g. 30"/>
+            <flux:input label="Schedule" wire:model="schedule" placeholder="E.g. Mon, Wed, Fri 9:00 - 10:00" required/>
+            <flux:input type="number" label="Capacity" wire:model="capacity" placeholder="E.g. 30" required/>
 
             <div class="flex gap-2">
                 <flux:spacer/>
