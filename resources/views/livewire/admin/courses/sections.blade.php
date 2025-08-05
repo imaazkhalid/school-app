@@ -99,7 +99,7 @@
             <div>
                 <flux:heading size="lg">Delete Section</flux:heading>
                 <flux:text class="mt-2">
-                    Are you sure you want to delete the section"{{ $deleting?->name }}"? <br>
+                    Are you sure you want to delete the section "{{ $deleting?->name }}"? <br>
                     This action cannot be reversed.
                 </flux:text>
             </div>
