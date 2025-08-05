@@ -22,7 +22,7 @@
                     @endif
 
                     @if (auth()->user()->role === 'teacher')
-                        <flux:navlist.item icon="layout-grid" :href="route('teacher.dashboard')" :current="request()->routeIs('teacher.dashboard')" wire:navigate>{{ __('Teacher Dashboard') }}</flux:navlist.item>
+                        <flux:navlist.item icon="layout-grid" :href="route('teacher.dashboard')" :current="request()->routeIs('teacher.dashboard') || request()->routeIs('teacher.sections.grades')" wire:navigate>{{ __('Teacher Dashboard') }}</flux:navlist.item>
 {{--                        <flux:navlist.item icon="folder-git-2" :href="route('teacher.sections.index')" :current="request()->routeIs('teacher.sections.index')" wire:navigate>{{ __('My Sections') }}</flux:navlist.item>--}}
                     @endif
 
