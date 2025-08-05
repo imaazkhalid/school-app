@@ -16,6 +16,9 @@
                     @if (auth()->user()->role === 'admin')
                         <flux:navlist.item icon="layout-grid" :href="route('admin.dashboard')" :current="request()->routeIs('admin.dashboard')" wire:navigate>{{ __('Admin Dashboard') }}</flux:navlist.item>
                         <flux:navlist.item icon="book-open-text" :href="route('admin.courses.index')" :current="request()->routeIs('admin.courses.index') || request()->routeIs('admin.courses.sections.index') || request()->routeIs('admin.courses.students.index')" wire:navigate>{{ __('Courses') }}</flux:navlist.item>
+                        <flux:navlist.item icon="academic-cap" :href="route('admin.students.index')" :current="request()->routeIs('admin.students.index')" wire:navigate>{{ __('Students') }}</flux:navlist.item>
+                        <flux:navlist.item icon="users" :href="route('admin.teachers.index')" :current="request()->routeIs('admin.teachers.index')" wire:navigate>{{ __('Teachers') }}</flux:navlist.item>
+
                     @endif
 
                     @if (auth()->user()->role === 'teacher')
