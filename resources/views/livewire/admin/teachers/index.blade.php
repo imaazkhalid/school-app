@@ -1,4 +1,4 @@
-<div>
+<div class="flex h-full w-full flex-1 flex-col gap-4 rounded-xl">
     <div class="flex items-center justify-between">
         <div class="flex justify-center items-center gap-4">
             <flux:button icon="arrow-left" variant="ghost" :href="route('admin.dashboard')"
@@ -22,9 +22,9 @@
                 <tbody class="divide-y divide-neutral-200 dark:divide-zinc-700">
                 @forelse ($teachers as $teacher)
                     <tr>
-                        <td class="whitespace-nowrap px-6 py-3 text-sm font-medium text-neutral-900 dark:text-neutral-100">{{ $teacher->user->name }}</td>
-                        <td class="whitespace-nowrap px-6 py-3 text-sm text-neutral-500 dark:text-neutral-400">{{ $teacher->user->email }}</td>
-                        <td class="whitespace-nowrap px-6 py-3 text-sm text-neutral-500 dark:text-neutral-400">{{ $teacher->teacher_id }}</td>
+                        <td class="whitespace-nowrap px-6 py-5.5 text-sm font-medium text-neutral-900 dark:text-neutral-100">{{ $teacher->user->name }}</td>
+                        <td class="whitespace-nowrap px-6 py-5.5 text-sm text-neutral-500 dark:text-neutral-400">{{ $teacher->user->email }}</td>
+                        <td class="whitespace-nowrap px-6 py-5.5 text-sm text-neutral-500 dark:text-neutral-400">{{ $teacher->teacher_id }}</td>
                     </tr>
                 @empty
                     <tr>

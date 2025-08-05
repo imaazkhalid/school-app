@@ -12,7 +12,7 @@
     </div>
 
     <div
-        class="overflow-hidden rounded-xl border border-neutral-200 bg-white shadow dark:border-zinc-700 dark:bg-zinc-800">
+        class="mt-4 overflow-hidden rounded-xl border border-neutral-200 bg-white shadow dark:border-zinc-700 dark:bg-zinc-800">
         <div class="min-w-full overflow-x-auto">
             <table class="min-w-full divide-y divide-neutral-200 dark:divide-zinc-700">
                 <thead>

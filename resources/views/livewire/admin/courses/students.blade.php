@@ -1,4 +1,4 @@
-<div>
+<div class="flex h-full w-full flex-1 flex-col gap-4 rounded-xl">
     <div class="flex items-center justify-between">
         <div class="flex justify-center items-center gap-4">
             <flux:button icon="arrow-left" variant="ghost"
