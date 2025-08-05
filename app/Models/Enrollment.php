@@ -31,7 +31,7 @@ class Enrollment extends Pivot
 
     public function section(): BelongsTo
     {
-        return $this->belongsTo(\App\Models\Section::class);
+        return $this->belongsTo(Section::class);
     }
 
     public function student(): BelongsTo
