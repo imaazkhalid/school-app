@@ -2,53 +2,73 @@
 
 namespace App\Livewire\Teacher\Section;
 
+use App\Helpers\GradeHelper;
+use App\Models\Enrollment;
 use App\Models\Section;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Livewire\Attributes\Title;
-use Livewire\Attributes\Validate;
 use Livewire\Component;
 
 #[Title('Manage Grades')]
 class Grades extends Component
 {
     public Section $section;
-
-    #[Validate([
-        'grades.*' => 'nullable|numeric|min:0|max:100',
-    ])]
-    public array $grades = [];
+    public $enrollments;
+    public $editEnrollmentId = null;
+    public $editMarks = null;
+    public $editStudentName = null;
+    public $enrollment = null;
 
     public function mount(Section $section)
     {
         Gate::authorize('update', $section);
 
         $this->section = $section;
-        $this->loadGrades();
+        $this->loadEnrollments();
     }
 
-    public function loadGrades(): void
+    public function loadEnrollments(): void
     {
-        $this->grades = $this->section->students->pluck('pivot.grade', 'id')->toArray();
+        $this->enrollments = $this->section->enrollments()->with('student.user')->get();
     }
 
-    public function saveGrades(): void
+    public function openEditModal($enrollmentId)
     {
-        $this->validate();
+        $this->enrollment = Enrollment::findOrFail($enrollmentId);
+        $this->editEnrollmentId = $this->enrollment->id;
+        $this->editMarks = $this->enrollment->marks;
+        $this->editStudentName = $this->enrollment->student->user->name;
+    }
 
-        DB::transaction(function () {
-            foreach ($this->grades as $studentId => $grade) {
-                $this->section->students()->updateExistingPivot($studentId, ['grade' => $grade]);
-            }
-        });
+    public function saveGrade()
+    {
+        $this->validate([
+            'editMarks' => 'required|numeric|min:0|max:100',
+        ]);
 
-        session()->flash('status', 'Grades saved successfully!');
+        $grade = GradeHelper::fromMarks($this->editMarks);
+//        $enrollment = Enrollment::findOrFail($this->editEnrollmentId);
+        $this->enrollment->marks = $this->editMarks;
+        $this->enrollment->grade = $grade;
+        $this->enrollment->save();
+
+        $this->loadEnrollments();
+        $this->editEnrollmentId = null;
+        $this->editMarks = null;
+        $this->editStudentName = null;
+        $this->enrollment = null;
+        session()->flash('status', 'Grade updated successfully!');
+    }
+
+    public function closeModal()
+    {
+        $this->editEnrollmentId = null;
+        $this->editMarks = null;
+        $this->editStudentName = null;
     }
 
     public function render()
     {
-        return view('livewire.teacher.section.grades', [
-            'students' => $this->section->students()->withPivot('grade')->get(),
-        ]);
+        return view('livewire.teacher.section.grades');
     }
 }
