@@ -1,7 +1,7 @@
 <div>
     <div class="flex items-center justify-between">
         <div class="flex justify-center items-center gap-4">
-            <flux:button icon="arrow-left" variant="ghost" :href="route('admin.courses.index')" :current="request()->routeIs('admin.dashboard')" wire:navigate/>
+            <flux:button icon="arrow-left" variant="ghost" :href="route('admin.courses.index')" :current="request()->routeIs('admin.courses.index')" wire:navigate/>
             <h1 class="text-2xl font-bold">{{ __('Sections for: ') }} {{ $course->name }}</h1>
         </div>
         <flux:modal.trigger :name="'create-section-modal'">
