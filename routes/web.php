@@ -53,7 +53,7 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->name('ad
     Route::get('/dashboard', AdminDashboard::class)->name('dashboard');
     Route::get('/courses', AdminCourses::class)->name('courses.index');
     Route::get('/courses/{course}/sections', AdminSections::class)->name('courses.sections.index');
-    Route::get('/courses/{course}/students', AdminStudents::class)->name('courses.students.index');
+    Route::get('/courses/{section}/students', AdminStudents::class)->name('courses.students.index');
 });
 
 Route::middleware(['auth', 'verified', 'role:teacher'])->prefix('teacher')->name('teacher.')->group(function () {

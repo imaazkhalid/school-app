@@ -40,6 +40,12 @@
                                 </flux:button>
                                 <flux:menu>
                                     <flux:menu.item
+                                        :href="route('admin.courses.students.index', ['section' => $section->id])"
+                                        wire:navigate
+                                    >
+                                        {{ __('View Students') }}
+                                    </flux:menu.item>
+                                    <flux:menu.item
                                         wire:click="edit({{ $section->id }})">{{ __('Edit Section') }}</flux:menu.item>
                                     <flux:menu.item wire:click="delete({{ $section->id }})"
                                                     class="text-red-500 hover:bg-red-500/10">{{ __('Delete Section') }}</flux:menu.item>
