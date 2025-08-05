@@ -20,7 +20,9 @@ class Index extends Component
     {
         return view('livewire.admin.teachers.index', [
             'teachers' => Teacher::with('user')->paginate(15),
-            'users' => User::where('role', '!=', 'teacher')->get(),
+            'users' => User::where('role', '!=', 'teacher')
+                ->where('role', '!=', 'admin')
+                ->get(),
         ]);
     }
 
