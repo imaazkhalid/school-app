@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -27,4 +28,14 @@ class Enrollment extends Pivot
      * @var array<int, string>
      */
     protected $guarded = [];
+
+    public function section(): BelongsTo
+    {
+        return $this->belongsTo(\App\Models\Section::class);
+    }
+
+    public function student(): BelongsTo
+    {
+        return $this->belongsTo(Student::class);
+    }
 }
